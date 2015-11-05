@@ -5,14 +5,12 @@
 -----------------------------------------------------------------------------
 License:
 
-This software is made public for research use only. It may be modified and redistributed
-under the terms of the GNU General Public License. 
+This software is made public for research use only. It may be modified and redistributed under the terms of the GNU General Public License. 
 
 Algorithm:
 
 This code implements theoretical results developed by the Haller Group at ETH Zurich. 
-See georgehaller.com or the Wikipedia page on Lagrangian Coherent Structures for  
-more information. 
+See georgehaller.com or the Wikipedia page on Lagrangian Coherent Structures for more information. 
 
 Citation:
 
@@ -31,9 +29,8 @@ Please also cite the theoretical work underlying my implementation  as follows:
 ----------------------------------------------------------------------------- 
 References:
 
-[1] A. Hadjighasem & G. Haller, Geodesic Transport barriers in Jupiter’s
-    Atmosphere: A Video-Based Analysis, SIAM Review, in press (2015)
-    http://arxiv.org/abs/1408.5594
+[1] A. Hadjighasem & G. Haller, Geodesic Transport barriers in Jupiter’s Atmosphere: A Video-Based Analysis, SIAM Review, in press (2015)
+http://arxiv.org/abs/1408.5594
 
 [2] G. Haller, FJ. Beron-Vera, Coherent Lagrangian vortices: the black
     holes of turbulence.  J. Fluid Mech. 731 (2013) R4
