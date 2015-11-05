@@ -35,16 +35,11 @@ http://arxiv.org/abs/1408.5594
 [2] G. Haller, FJ. Beron-Vera, Coherent Lagrangian vortices: the black
     holes of turbulence.  J. Fluid Mech. 731 (2013) R4
 
-[3] D. Karrasch, F. Huhn, G. Haller, Automated detection of coherent
-    Lagrangian vortices in two-dimensional unsteady flows. 
-    Proc. Royal Society, 471 (2014) 20140639
+[3] D. Karrasch, F. Huhn, G. Haller, Automated detection of coherent Lagrangian vortices in two-dimensional unsteady flows. Proc. Royal Society, 471 (2014) 20140639
 
-[4] M. Farazmand, G. Haller, Computing Lagrangian coherent structures
-    from their variational theory. Chaos. 22 (2012) 013128 
+[4] M. Farazmand, G. Haller, Computing Lagrangian coherent structures from their variational theory. Chaos. 22 (2012) 013128 
 
-[5] M. Farazmand, D. Blazevski, G. Haller, Shearless transport barriers
-    in unsteady two-dimensional flows and maps. 
-    Physica D 278–279 (2014) 44–5.
+[5] M. Farazmand, D. Blazevski, G. Haller, Shearless transport barriers in unsteady two-dimensional flows and maps. Physica D 278–279 (2014) 44–5.
 
 -----------------------------------------------------------------------------
 
