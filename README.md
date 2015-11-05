@@ -1,11 +1,8 @@
 # Elliptic_LCS_2D
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%              Automated Elliptic LCS Detection in 2D               %
-%                                                                   %
-%                  Alireza Hadjighasem (ETH Zurich)                 %                               
-%            http://www.zfm.ethz.ch/~hadjighasem/index.html         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Computing the Lagrangian-Averaged Vorticity Deviation (LAVD) in 2D
+### Alireza Hadjighasem (ETH Zurich) 
+#### http://www.zfm.ethz.ch/~hadjighasem/index.html
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 License:
 
