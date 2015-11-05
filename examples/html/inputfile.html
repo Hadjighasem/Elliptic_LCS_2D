@@ -1,0 +1,242 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>inputfile</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-10-31"><meta name="DC.source" content="inputfile.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Step0: Compute Cauchy-Green strain tensor and its invariants</a></li><li><a href="#3">Step1: Locate singularities and thier types</a></li><li><a href="#4">Step2: Identify elliptic regions based on index theory</a></li><li><a href="#5">Step3: Set up Poincare sections for launching \lambda-lines</a></li><li><a href="#6">Step4: Launch \lambda-lines</a></li><li><a href="#7">Step5: Locating closed orbits of the \lambda vector fields.</a></li><li><a href="#8">Step6:</a></li><li><a href="#9">Step7: Locate and plot the outermost closed orbits as the Lagrangian eddy boundary</a></li></ul></div><pre class="codeinput"><span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+                        <span class="comment">% Author: Alireza hadjighasem %</span>
+                        <span class="comment">% Email:  alirezah@ethz.ch    %</span>
+                        <span class="comment">% Date:   30/10/2015          %</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+clear; clc; close <span class="string">all</span>; tic
+load(<span class="string">'Ocean_geostrophic_velocity.mat'</span>,<span class="string">'date_str'</span>,<span class="string">'time'</span>,<span class="string">'Domain'</span>)
+<span class="comment">% The altimeter products used in this work are produced by SSALTO/DUACS and</span>
+<span class="comment">% distributed by AVISO, with support from CNES (http://www.aviso.oceanobs.com/duacs).</span>
+</pre><h2>Step0: Compute Cauchy-Green strain tensor and its invariants<a name="2"></a></h2><pre class="codeinput">t0 = time(1);
+tf = t0+90;
+tspan = linspace(t0,tf,3);                     <span class="comment">% A vector specifying the interval of integration</span>
+
+options = odeset(<span class="string">'RelTol'</span>,1e-6,<span class="string">'AbsTol'</span>,1e-6); <span class="comment">% ODE solver options</span>
+memo1 = [<span class="string">'... Integration time is '</span>,num2str(tf-t0),<span class="string">' days'</span>];
+<span class="comment">%- Generating a uniform grid of initial conditions</span>
+n = 1.5*390;  m = 1.5*210;
+x = linspace(-4,9,n);        dx = abs(x(2)-x(1));
+y = linspace(-35,-28,m);     dy = abs(y(2)-y(1));
+[xi,yi] = meshgrid(x,y);
+
+rho.x = 0.3*dx;   rho.y = 0.3*dy;              <span class="comment">% \rho: auxiliary distance for computing the gradient of the flow map</span>
+mode = <span class="string">'parallel'</span>;                             <span class="comment">% Processor modes: "serial" OR "parallel"</span>
+[lambda_1,lambda_2,xi1,xi2,C11,C12,C22] = cgTensor(xi,yi,tspan,rho,mode,options);
+</pre><h2>Step1: Locate singularities and thier types<a name="3"></a></h2><pre class="codeinput">Gfilter = false;                           <span class="comment">% Gaussian Filter</span>
+R = 1.8*min(dx,dy);                        <span class="comment">% Radius of circular neighbourhood around each singularity</span>
+PickTol = 1e-2;                            <span class="comment">% Deviation tol. of peaks from 0 &amp; 1</span>
+[Xs,Ys,SingularityType] =  SingularityDetection(C11,C12,C22,x,y,xi1,Gfilter,R,PickTol);
+</pre><pre class="codeoutput">... 2826 singularities are detected with the following types:
+.......... 1018 trisectors
+.......... 1375 wedges
+.......... 433 unknowns
+</pre><img vspace="5" hspace="5" src="inputfile_01.png" style="width:2043px;height:1202px;" alt=""> <h2>Step2: Identify elliptic regions based on index theory<a name="4"></a></h2><pre class="codeinput">MinWedgeDist = 3*min(dx,dy);               <span class="comment">% Minimum permitable distance between a wedge pair</span>
+MaxWedgeDist = 20*min(dx,dy);              <span class="comment">% Maximum permitable distance between a wedge pair</span>
+Min2ndDist = 15*min(dx,dy);                <span class="comment">% Minimum permitable distance from the 2nd closest wedge</span>
+[Xe,Ye] = DetectEllipticRegion(Xs,Ys,SingularityType,MinWedgeDist,MaxWedgeDist,Min2ndDist);
+</pre><pre class="codeoutput">... 4 elliptic regions are identified
+</pre><img vspace="5" hspace="5" src="inputfile_02.png" style="width:2043px;height:1202px;" alt=""> <h2>Step3: Set up Poincare sections for launching \lambda-lines<a name="5"></a></h2><pre class="codeinput">Np = 25;                                   <span class="comment">% Number of points on each Poincar&eacute; section</span>
+PsectionRadius = 1;                        <span class="comment">% Length of the Poincar&eacute; sections</span>
+[Px,Py] = SettingPoincareSection(x,y,Xe,Ye,Np,PsectionRadius);
+</pre><img vspace="5" hspace="5" src="inputfile_03.png" style="width:2043px;height:1202px;" alt=""> <h2>Step4: Launch \lambda-lines<a name="6"></a></h2><pre class="codeinput">mode = <span class="string">'parallel'</span>;                               <span class="comment">% Processor modes: "serial" OR "parallel"</span>
+sgn = 1;                                         <span class="comment">% Sign of the \lambda vector field: 1 OR -1</span>
+Nlambda = 20;                                    <span class="comment">% Number of \lambda-values thorugh which we search for closed orbits</span>
+L_vec = linspace(0.85,1.15,Nlambda);             <span class="comment">% Vector of \lambda-values</span>
+ArcLength = linspace(0,5,500);                   <span class="comment">% parameterization of \lambda lines: linspace(0,arclength,NumPointsOnCurve)</span>
+options = odeset(<span class="string">'RelTol'</span>,1e-5,<span class="string">'AbsTol'</span>,1e-5);   <span class="comment">% ODE solver options</span>
+
+
+rho = 0.5*min(cellfun(@(x) min(diff(x)),<span class="keyword">...</span><span class="comment">      % Auxiliary distance for finding the fixed points of the Poincar&eacute; map</span>
+    Py,<span class="string">'UniformOutput'</span>,true));
+dist_tol = rho;                                  <span class="comment">% Maximum permitable distance between the two ends of a potentioal closed orbit</span>
+
+px_mat = [cat(1,Px{:}),cat(1,Px{:})];
+py_mat = [cat(1,Py{:})+rho,cat(1,Py{:})-rho];
+
+pxt = cell(1,Nlambda);   pyt = cell(1,Nlambda);
+<span class="keyword">for</span> ii=1:Nlambda
+    L = L_vec(ii);
+    [pxt{ii},pyt{ii}] = LambdaLine(px_mat,py_mat,ArcLength,x,y,lambda_1,lambda_2,xi1,xi2,sgn,L,mode,options);
+<span class="keyword">end</span>
+</pre><h2>Step5: Locating closed orbits of the \lambda vector fields.<a name="7"></a></h2><p>Closed orbits pass through the fixed points of the Poincar&eacute; map</p><pre class="codeinput">px0 = cell(1,Nlambda);   py0 = cell(1,Nlambda);
+<span class="keyword">for</span> ii=1:Nlambda
+    [px0{ii},py0{ii}] = OrbitDetection(pxt{ii},pyt{ii},dist_tol);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 1 closed orbits detected
+... 1 closed orbits detected
+... 1 closed orbits detected
+... 1 closed orbits detected
+... 1 closed orbits detected
+... 3 closed orbits detected
+... 2 closed orbits detected
+... 5 closed orbits detected
+... 0 closed orbits detected
+... 5 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+... 0 closed orbits detected
+</pre><h2>Step6:<a name="8"></a></h2><pre class="codeinput">pxt = cell(1,Nlambda);   pyt = cell(1,Nlambda);
+<span class="keyword">for</span> ii=1:Nlambda
+    <span class="keyword">if</span> ~isempty(px0{ii})
+        L = L_vec(ii);
+        [pxt{ii},pyt{ii}] = LambdaLine(px0{ii},py0{ii},ArcLength,x,y,lambda_1,lambda_2,xi1,xi2,sgn,L,mode,options);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2>Step7: Locate and plot the outermost closed orbits as the Lagrangian eddy boundary<a name="9"></a></h2><pre class="codeinput">[sol_outer,sol] = Cropping_ExtractingOuter(x,y,lambda_2,pxt,pyt,Xe,Ye,L_vec); tt = toc;
+</pre><pre class="codeoutput">... 20 closed orbits in total are detected
+</pre><img vspace="5" hspace="5" src="inputfile_04.png" style="width:2043px;height:1202px;" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                        % Author: Alireza hadjighasem %
+                        % Email:  alirezah@ethz.ch    %
+                        % Date:   30/10/2015          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clear; clc; close all; tic
+load('Ocean_geostrophic_velocity.mat','date_str','time','Domain')
+% The altimeter products used in this work are produced by SSALTO/DUACS and
+% distributed by AVISO, with support from CNES (http://www.aviso.oceanobs.com/duacs). 
+%% Step0: Compute Cauchy-Green strain tensor and its invariants
+t0 = time(1);
+tf = t0+90;
+tspan = linspace(t0,tf,3);                     % A vector specifying the interval of integration
+
+options = odeset('RelTol',1e-6,'AbsTol',1e-6); % ODE solver options
+memo1 = ['... Integration time is ',num2str(tf-t0),' days'];
+%- Generating a uniform grid of initial conditions
+n = 1.5*390;  m = 1.5*210;
+x = linspace(-4,9,n);        dx = abs(x(2)-x(1));
+y = linspace(-35,-28,m);     dy = abs(y(2)-y(1));
+[xi,yi] = meshgrid(x,y);
+
+rho.x = 0.3*dx;   rho.y = 0.3*dy;              % \rho: auxiliary distance for computing the gradient of the flow map
+mode = 'parallel';                             % Processor modes: "serial" OR "parallel"
+[lambda_1,lambda_2,xi1,xi2,C11,C12,C22] = cgTensor(xi,yi,tspan,rho,mode,options);
+%% Step1: Locate singularities and thier types
+Gfilter = false;                           % Gaussian Filter
+R = 1.8*min(dx,dy);                        % Radius of circular neighbourhood around each singularity
+PickTol = 1e-2;                            % Deviation tol. of peaks from 0 & 1
+[Xs,Ys,SingularityType] =  SingularityDetection(C11,C12,C22,x,y,xi1,Gfilter,R,PickTol);
+%% Step2: Identify elliptic regions based on index theory
+MinWedgeDist = 3*min(dx,dy);               % Minimum permitable distance between a wedge pair
+MaxWedgeDist = 20*min(dx,dy);              % Maximum permitable distance between a wedge pair
+Min2ndDist = 15*min(dx,dy);                % Minimum permitable distance from the 2nd closest wedge
+[Xe,Ye] = DetectEllipticRegion(Xs,Ys,SingularityType,MinWedgeDist,MaxWedgeDist,Min2ndDist);
+%% Step3: Set up Poincare sections for launching \lambda-lines
+Np = 25;                                   % Number of points on each Poincaré section
+PsectionRadius = 1;                        % Length of the Poincaré sections
+[Px,Py] = SettingPoincareSection(x,y,Xe,Ye,Np,PsectionRadius);
+%% Step4: Launch \lambda-lines
+mode = 'parallel';                               % Processor modes: "serial" OR "parallel"
+sgn = 1;                                         % Sign of the \lambda vector field: 1 OR -1
+Nlambda = 20;                                    % Number of \lambda-values thorugh which we search for closed orbits
+L_vec = linspace(0.85,1.15,Nlambda);             % Vector of \lambda-values
+ArcLength = linspace(0,5,500);                   % parameterization of \lambda lines: linspace(0,arclength,NumPointsOnCurve)
+options = odeset('RelTol',1e-5,'AbsTol',1e-5);   % ODE solver options
+
+
+rho = 0.5*min(cellfun(@(x) min(diff(x)),...      % Auxiliary distance for finding the fixed points of the Poincaré map
+    Py,'UniformOutput',true)); 
+dist_tol = rho;                                  % Maximum permitable distance between the two ends of a potentioal closed orbit
+
+px_mat = [cat(1,Px{:}),cat(1,Px{:})];
+py_mat = [cat(1,Py{:})+rho,cat(1,Py{:})-rho];
+
+pxt = cell(1,Nlambda);   pyt = cell(1,Nlambda);
+for ii=1:Nlambda
+    L = L_vec(ii);
+    [pxt{ii},pyt{ii}] = LambdaLine(px_mat,py_mat,ArcLength,x,y,lambda_1,lambda_2,xi1,xi2,sgn,L,mode,options);
+end
+%% Step5: Locating closed orbits of the \lambda vector fields.
+% Closed orbits pass through the fixed points of the Poincaré map
+px0 = cell(1,Nlambda);   py0 = cell(1,Nlambda);
+for ii=1:Nlambda
+    [px0{ii},py0{ii}] = OrbitDetection(pxt{ii},pyt{ii},dist_tol);
+end
+%% Step6:
+pxt = cell(1,Nlambda);   pyt = cell(1,Nlambda);
+for ii=1:Nlambda
+    if ~isempty(px0{ii})
+        L = L_vec(ii);
+        [pxt{ii},pyt{ii}] = LambdaLine(px0{ii},py0{ii},ArcLength,x,y,lambda_1,lambda_2,xi1,xi2,sgn,L,mode,options);
+    end
+end
+%% Step7: Locate and plot the outermost closed orbits as the Lagrangian eddy boundary
+[sol_outer,sol] = Cropping_ExtractingOuter(x,y,lambda_2,pxt,pyt,Xe,Ye,L_vec); tt = toc;
+
+##### SOURCE END #####
+--></body></html>
