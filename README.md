@@ -68,6 +68,6 @@ with support from CNES (http://www.aviso.oceanobs.com/duacs).
 
 Maintained by Alireza Hadjighasem,
 
-alirezah at ethz dot ch\
+alirezah at ethz dot ch
 http://www.zfm.ethz.ch/~hadjighasem/index.html
 October 30, 2015.
