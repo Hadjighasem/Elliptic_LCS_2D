@@ -1,7 +1,7 @@
 # Elliptic_LCS_2D
 ### Alireza Hadjighasem (ETH Zurich) 
 #### http://www.zfm.ethz.ch/~hadjighasem/index.html
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 License:
 
