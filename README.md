@@ -2,7 +2,7 @@
 ### Alireza Hadjighasem (ETH Zurich) 
 #### http://www.zfm.ethz.ch/~hadjighasem/index.html
 
-
+-----------------------------------------------------------------------------
 License:
 
 This software is made public for research use only. It may be modified and redistributed
