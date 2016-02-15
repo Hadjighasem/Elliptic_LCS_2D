@@ -22,20 +22,19 @@ Please cite [1] if you use the code in your own work.
 
 Please also cite the theoretical work underlying my implementation  as follows:
 
-— OrbitDetection.m and eta_tracing.m are implemented based on [2].
+â€” OrbitDetection.m and eta_tracing.m are implemented based on [2].
 
-— DetectEllipticRegion.m and SettingPoincareSection.m are implemented based on [3]. 
+â€” DetectEllipticRegion.m and SettingPoincareSection.m are implemented based on [3]. 
 
-— SingularityDetection.m is implemented based on [5]. 
+â€” SingularityDetection.m is implemented based on [5]. 
 
-— cgTensor.m is implemented based on [4].
+â€” cgTensor.m is implemented based on [4].
 
 ----------------------------------------------------------------------------- 
 References:
 
-[1] A. Hadjighasem & G. Haller, Geodesic Transport barriers in Jupiter’s
-    Atmosphere: A Video-Based Analysis, SIAM Review, in press (2015)
-    http://arxiv.org/abs/1408.5594
+[1] Alireza Hadjighasem, and George Haller, Geodesic Transport barriers in Jupiterâ€™s
+    Atmosphere: A Video-Based Analysis,  SIAM Review, 58(1): 69-89 (2016). 
 
 [2] G. Haller, FJ. Beron-Vera, Coherent Lagrangian vortices: the black
     holes of turbulence.  J. Fluid Mech. 731 (2013) R4
@@ -49,7 +48,7 @@ References:
 
 [5] M. Farazmand, D. Blazevski, G. Haller, Shearless transport barriers
     in unsteady two-dimensional flows and maps. 
-    Physica D 278–279 (2014) 44–5.
+    Physica D 278â€“279 (2014) 44â€“5.
 
 -----------------------------------------------------------------------------
 
