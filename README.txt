@@ -33,7 +33,7 @@ Please also cite the theoretical work underlying my implementation  as follows:
 ----------------------------------------------------------------------------- 
 References:
 
-[1] Alireza Hadjighasem, and George Haller, Geodesic Transport barriers in Jupiter’s
+[1] A. Hadjighasem, and G. Haller, Geodesic Transport barriers in Jupiter’s
     Atmosphere: A Video-Based Analysis,  SIAM Review, 58(1): 69-89 (2016). 
 
 [2] G. Haller, FJ. Beron-Vera, Coherent Lagrangian vortices: the black
