@@ -100,5 +100,5 @@ function [sol_outer,sol] = Cropping_ExtractingOuter(x,y,lambda_2,pxt,pyt,Xe,Ye,L
     end
     legend(gca,'show','location','northeastoutside')
     set(gca,'ydir','normal','fontsize',28); axis equal tight; 
-    xlabel('Lon[\circ]');   ylabel('Lon[\circ]');
+    xlabel('Lon[\circ]');   ylabel('Lat[\circ]');
 end
