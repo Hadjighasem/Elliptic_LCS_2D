@@ -25,10 +25,10 @@ function [Xs,Ys,SingularityType] =  SingularityDetection(C11,C12,C22,x,y,xi1,Gfi
 
     Ntheta = 2884;   % number of points used to construct a circle around each singularity
                             
-    %-- Recall that Cauchy–Green singularities are points, where C = I. We
+    %-- Recall that Cauchyâ€“Green singularities are points, where C = I. We
     %find such points at subgrid-resolution as intersections of the
     %zero-level sets of the functions z1 = C11-C22 and z2=C12=C21, where
-    %Cij denote the entries of the Cauchy– Green strain tensor
+    %Cij denote the entries of the Cauchyâ€“ Green strain tensor
     [xi,yi] = meshgrid(x,y);
     % Calculate the two surfaces
     z1 = C11-C22;    
@@ -127,6 +127,6 @@ function [Xs,Ys,SingularityType] =  SingularityDetection(C11,C12,C22,x,y,xi1,Gfi
     end
     legend(gca,'show','location','northeastoutside')
     set(gca,'ydir','normal','fontsize',18); axis equal tight; 
-    xlabel('Lon[\circ]');   ylabel('Lon[\circ]');
+    xlabel('Lon[\circ]');   ylabel('Lat[\circ]');
 end
 
