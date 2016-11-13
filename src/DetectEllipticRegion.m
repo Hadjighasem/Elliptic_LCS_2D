@@ -33,7 +33,7 @@ id1_KNN = repmat(indwedge,1,2);
 id2_KNN = indwedge( Id2_KNN(:,2:end) );
 dKNN = dKNN(:,2:end);
  
-nn = 0;
+nn = 0; ind1 = []; ind2 = [];
 for kk=1:Nw
     if dKNN(kk,1)<MaxWedgeDist && dKNN(kk,1)>MinWedgeDist && dKNN(kk,2)>Min2ndDist
         nn = nn+1;
