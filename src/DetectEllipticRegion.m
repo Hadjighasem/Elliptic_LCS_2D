@@ -24,34 +24,34 @@ function [Xe,Ye] = DetectEllipticRegion(Xs,Ys,SingularityType,MinWedgeDist,MaxWe
 Ns = numel(Xs);
 indwedge = find(SingularityType == -1);
 Nw = numel(indwedge);
-
+ 
 % pairwise distances between singularities
-exhaustiveobj = ExhaustiveSearcher([Xs(:),Ys(:)],'Distance','euclidean');
-[Id2_KNN,dKNN] = knnsearch(exhaustiveobj,[Xs(:),Ys(:)],'k',3,'IncludeTies',false);
-
-id1_KNN = repmat((1:Ns)',1,2);
-id2_KNN = Id2_KNN(:,2:end);
+exhaustiveobj = ExhaustiveSearcher([Xs(indwedge),Ys(indwedge)],'Distance','euclidean');
+[Id2_KNN,dKNN] = knnsearch(exhaustiveobj,[Xs(indwedge),Ys(indwedge)],'k',3,'IncludeTies',false);
+ 
+id1_KNN = repmat(indwedge,1,2);
+id2_KNN = indwedge( Id2_KNN(:,2:end) );
 dKNN = dKNN(:,2:end);
-
-mask1 = ismember(id2_KNN(:,1),indwedge);
-mask2 = ( dKNN(:,1)<MaxWedgeDist ) .* ( dKNN(:,1)>MinWedgeDist );
-mask3 = dKNN(:,2)>Min2ndDist;
-mask4 = SingularityType == -1;
-mask = mask1.*mask2.*mask3.*mask4;
-
-ind1 = find(mask);
-ind2 = id2_KNN(ind1,1);
+ 
+nn = 0;
+for kk=1:Nw
+    if dKNN(kk,1)<MaxWedgeDist && dKNN(kk,1)>MinWedgeDist && dKNN(kk,2)>Min2ndDist
+        nn = nn+1;
+        ind1(nn,1) = id1_KNN(kk);
+        ind2(nn,1) = id2_KNN(kk);
+    end
+end
 mutual = ismember([ind1,ind2],[ind2,ind1],'rows');
-
+ 
 ind = sort([ind1(mutual),ind2(mutual)],2);
 ind_unique = unique(ind,'rows');
-
-Xe = Xs(ind_unique);
-Ye = Ys(ind_unique);
-
+ 
+Xe = reshape( Xs(ind_unique), size(ind_unique));
+Ye = reshape( Ys(ind_unique), size(ind_unique));
+ 
 Ne = size(Xe,1);   % number of elliptic regions
 disp(sprintf('... %d elliptic regions are identified',Ne));
-
+ 
 %% plotting:
 hold on
 h = plot(mean(Xe,2),mean(Ye,2),'ow');
